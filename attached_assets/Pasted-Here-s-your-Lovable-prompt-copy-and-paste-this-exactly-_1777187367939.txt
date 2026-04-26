@@ -1,0 +1,359 @@
+Here's your Lovable prompt — copy and paste this exactly:
+
+---
+
+**Build a full-stack demo web application called AetherOS — the AI-Thermal-Smart Grid operating system for AetherGrid AI, a South African deep-tech startup.**
+
+**Tech stack:** React + TypeScript + Tailwind CSS + Recharts + shadcn/ui + Lucide icons. Single-page app with a sidebar navigation and multiple dashboard views.
+
+---
+
+**BRAND & DESIGN SYSTEM**
+
+Colour palette:
+- Background: `#0A1628` (deep navy)
+- Surface cards: `#0F2040` with `rgba(0,201,167,0.08)` border
+- Primary accent: `#00C9A7` (teal/mint)
+- Secondary accent: `#00A389`
+- Text primary: `#F0F4FF`
+- Text muted: `#7B8FAB`
+- Danger: `#E24B4A`
+- Warning: `#BA7517`
+- Success: `#1D9E75`
+
+Typography: Syne for headings (import from Google Fonts), DM Sans for body, DM Mono for numbers and code labels.
+
+Global style: dark theme throughout, subtle CSS grid background pattern using `rgba(0,201,167,0.04)` lines at 60px intervals, animated teal glow orb in top-right corner, custom scrollbar in teal.
+
+---
+
+**SIDEBAR NAVIGATION**
+
+Fixed left sidebar, 220px wide, `#0A1628` background with `rgba(0,201,167,0.1)` right border.
+
+Logo at top: "AG" monogram in a teal `#00C9A7` rounded square, then "AetherGrid AI" in Syne bold white, "AetherOS v0.2.0" in tiny teal mono below.
+
+Nav items with Lucide icons:
+- **Overview** (LayoutDashboard icon) — default active
+- **Dispatch** (Zap icon)
+- **Forecasting** (TrendingUp icon)
+- **Digital Twin** (Cpu icon)
+- **GPU Routing** (Server icon)
+- **Carbon Credits** (Leaf icon)
+- **Alerts** (Bell icon with red badge showing count)
+- **Reports** (FileText icon)
+
+Bottom of sidebar: site selector dropdown showing "Cape Town Pilot — 5 MW" with a green dot pulsing animation indicating live.
+
+Active nav item: teal left border `3px solid #00C9A7`, `rgba(0,201,167,0.1)` background, teal text.
+
+---
+
+**PAGE 1 — OVERVIEW DASHBOARD**
+
+Top stat row — 6 metric cards in a grid, each card `#0F2040` background, `1px solid rgba(0,201,167,0.15)` border, rounded-xl, with hover lift effect:
+
+1. **BESS State of Charge** — large teal number "67.3%" — subtitle "6.73 MWh available" — small animated battery icon filling up
+2. **PUE** — "1.28" in white — subtitle "vs 1.85 SA average" — green delta "−31% better"
+3. **Eskom Stage** — "Stage 2" with a pulsing amber circle — subtitle "Load-shedding active" — "Islanded ✓" badge in teal
+4. **Active Solar** — "1.42 MW" — small sun icon — subtitle "71% of 2 MW capacity"
+5. **Energy Savings Today** — "R 8,420" in green — subtitle "vs baseline grid cost"
+6. **CO₂ Avoided** — "3.2 t" — leaf icon in green — subtitle "this session"
+
+Below the stats: two-column layout.
+
+**Left column (60% width) — Live Energy Flow Chart:**
+Area chart using Recharts showing last 24 hours of:
+- Solar generation (golden `#FFB300`)
+- Wind generation (teal `#00C9A7`)
+- Grid import (red `#E24B4A`)
+- BESS charge/discharge (purple `#8B5CF6`)
+- Total load (white dashed line)
+
+Chart has dark background `#060F1E`, custom tooltip, legend at bottom. X-axis shows hours (00:00 to now), Y-axis shows MW. Make data realistic — solar peaks midday at 1.8 MW, drops to 0 at night, wind fluctuates 0.3–0.9 MW, grid import is highest early morning and evening peak hours.
+
+**Right column (40% width) — three stacked panels:**
+
+Panel A — **Dispatch Decision** (current AI action):
+```
+BESS: Discharging at −1.8 MW  [progress bar red]
+Biomass: 85% rated capacity  [progress bar green]  
+GPU Load: 35% deferrable  [progress bar amber]
+```
+Small "AI Decision" badge in top right. "Updated 14s ago" timestamp.
+
+Panel B — **Islanding Readiness Score:**
+Large circular gauge (SVG arc) 0–100, current value 72, coloured teal. Text inside: "72/100". Below: "Can sustain 4h ✓" in green, "Can sustain 8h ✗" in red.
+
+Panel C — **Next Shedding Risk:**
+Mini bar chart showing next 6 hours, bars coloured green (low) → amber (medium) → red (high) based on probability. Labels: +1h 15%, +2h 28%, +3h 65%, +4h 72%, +5h 44%, +6h 18%.
+
+---
+
+**PAGE 2 — DISPATCH**
+
+Header: "AI Dispatch Control" with a live green pulsing dot and "System Active" badge.
+
+**Sensor Input Panel** (left side, 40%):
+Card with form inputs — sliders with teal thumb for:
+- BESS SoC (0–100%)
+- Solar Generation MW (0–2)
+- Wind Generation MW (0–1)
+- Eskom Stage (0–8, stepped slider)
+- Rack Temperature °C (15–45)
+
+"Get Dispatch Decision" button — full width, teal background, "Calculating..." spinner state.
+
+**Decision Output Panel** (right side, 60%):
+After submitting, show animated result card with:
+
+Three large action badges:
+```
+⚡ BESS ACTION     🔥 BIOMASS        🖥 GPU ROUTING
+  Discharge 72%      87% Rated         35% Deferrable
+  −1.8 MW            435 kW            Front-load now
+```
+
+Then a 4-column forecast table:
+| Horizon | Stage | Solar MW | Wind MW |
+|---------|-------|----------|---------|
+| +1h | 2 | 1.35 | 0.71 |
+| +6h | 1 | 0.82 | 0.64 |
+| +12h | 0 | 0.00 | 0.58 |
+| +24h | 3 | 1.21 | 0.73 |
+
+Anomaly alerts section below — if stage > 2, show red alert card: "CRITICAL — Stage 4 detected. Pre-charging BESS. Deferring all training jobs. Islanding protocol armed."
+
+**Dispatch History** at bottom — table of last 10 decisions with timestamps, BESS action, biomass %, GPU %, savings in R.
+
+---
+
+**PAGE 3 — FORECASTING**
+
+Two-column layout.
+
+**Left — Load-Shedding Forecast:**
+Title "24h Eskom Stage Forecast — Cape Town"
+Bar chart (Recharts) with 24 bars representing next 24 hours. Bars coloured:
+- Stage 0: `#1D9E75` (green)
+- Stage 1–2: `#FFB300` (amber)
+- Stage 3–4: `#FF6B35` (orange)
+- Stage 5–8: `#E24B4A` (red)
+
+Below chart: probability timeline — thin strip of colour blocks matching stage risk.
+
+High-risk windows callout box in amber border: "⚠ High risk 15:00–21:00 (Stage 3–4 probable, 73% confidence)"
+
+**Right — Renewable Yield Forecast:**
+Line chart showing 48h ahead:
+- Solar forecast (gold) vs actual (gold dashed)
+- Wind forecast (teal) vs actual (teal dashed)
+
+Model accuracy scorecard below:
+```
+Load-shedding LSTM
+  MAE: 0.31 stages  ✓ Gate passed
+  Stage accuracy: 81.2%  ✓
+  Within ±1 stage: 94.7%  ✓
+
+Solar LSTM  
+  MAPE: 7.8%  ✓ Gate passed
+  R²: 0.914  ✓
+```
+Green checkmarks for passed gates, red X for failed.
+
+---
+
+**PAGE 4 — DIGITAL TWIN**
+
+Header: "Digital Twin — Live Facility Model" with "Monte Carlo Active" badge.
+
+**Facility Layout Diagram (top, full width):**
+Animated SVG diagram showing the facility energy flow:
+- Sun icon (top left) → solar panel → inverter → main busbar
+- Wind turbine (top right) → convertor → main busbar
+- Biomass flame icon → generator → main busbar
+- Main busbar (centre) → data centre building (right, with server rack icons inside)
+- BESS battery block (bottom left) connected to busbar with bidirectional arrow
+- Eskom grid icon (bottom right) → breaker → busbar
+- Arrows animate in the direction of current power flow, coloured by source
+- Numbers on arrows showing MW values
+
+**Three panels below:**
+
+Panel A — **Thermal Map:**
+3×4 grid of rack cards, each showing a colour gradient from cool blue to hot red based on temperature. Hover shows: Rack ID, Temp, Power, Load%. One rack highlighted red: "Rack B-07: 29.3°C ⚠"
+
+Panel B — **Monte Carlo Cost Simulation:**
+Area chart with P5 (optimistic), P50 (median), P95 (pessimistic) cost bands for next 24h. Shaded region between P5 and P95. X-axis: hours, Y-axis: R cost. "Run Simulation" button with n_scenarios slider (50–500).
+
+Panel C — **BESS Health Monitor:**
+Vertical battery graphic (SVG) with:
+- State of charge fill animation
+- SoH: 97.3% — progress bar
+- Cycles: 142 / 6,000 lifetime
+- Thermal risk: NONE — green badge
+- Est. remaining life: 9.2 years
+
+---
+
+**PAGE 5 — GPU ROUTING**
+
+Header: "GPU Workload Climate Router" with current decision badge.
+
+**Current Decision Banner** — full width, coloured by decision:
+- RUN_FULL: teal background — "🚀 FULL THROUGHPUT — Renewable surplus. Maximising training jobs."
+- THROTTLE_25: amber — "⚡ LIGHT THROTTLE — Conserving for incoming shedding."
+- PAUSE_DEFERRABLE: red — "⏸ DEFERRABLE PAUSED — Stage 2 active. Inference only."
+- EMERGENCY_MINIMUM: dark red — "🚨 EMERGENCY MINIMUM — Critical loads only."
+
+**Decision Logic Breakdown** (4 cards):
+```
+BESS SoC    Solar Fraction    Shed Probability    Stage
+  67%  🟡      71%  🟢           18%  🟢           2  🟡
+```
+Arrow pointing to decision badge.
+
+**Workload Distribution Chart:**
+Stacked bar chart showing over last 24h:
+- Critical inference (always green, bottom)
+- Normal inference (teal)
+- Batch jobs (amber)
+- Training runs (grey — deferred)
+Y-axis: MW, showing how training was paused during stage events.
+
+**Session Summary** cards in a 2×2 grid:
+- Total decisions: 144
+- Energy saved: 2,847 kWh
+- Cost saved: R 7,973
+- CO₂ avoided: 2.56 tonnes
+
+**Scheduler Integration Status:**
+Three status rows with connection indicators:
+- SLURM API: 🔴 Not configured
+- Kubernetes: 🟡 Webhook mode
+- Generic Webhook: 🟢 Connected
+
+---
+
+**PAGE 6 — CARBON CREDITS**
+
+Header with Verra Gold Standard badge logo (teal circle with "VCS" text).
+
+**Top stats row (4 cards):**
+- Annual VCU Projection: 13,257 VCU
+- Gross Value: R 4,421,000 / year
+- AetherGrid Brokerage (15%): R 663,150
+- Client Net: R 3,757,850 / year
+
+**Carbon Breakdown Donut Chart** (Recharts Pie):
+Three segments:
+- Diesel Elimination: 8,200 t CO₂e (62%)
+- Grid Reduction: 3,800 t CO₂e (28.7%)
+- Waste Heat Recovery: 1,257 t CO₂e (9.5%)
+
+Legend on right with coloured dots and values.
+
+**Event Log Table** — scrollable, columns:
+| Time | Type | CO₂e (kg) | Methodology | VCU Value |
+|------|------|-----------|-------------|-----------|
+...showing real-looking entries: "Diesel elimination", "Grid import reduction", "Waste heat recovery"
+
+**Export button** — "Download Verra Monitoring Report (CSV)" — teal outlined button with download icon.
+
+**Annual Projection Calculator:**
+Three number inputs: Daily diesel litres, Daily grid kWh saved, Daily heat MJ. Live-updating output showing projected annual VCU.
+
+---
+
+**PAGE 7 — ALERTS**
+
+Header: "Active Alerts & Anomaly Detection" — count badge showing number of unresolved.
+
+**Alert severity filter tabs:** All | Emergency | Critical | Warning
+
+**Alert cards** — each card has left border coloured by severity:
+- Emergency: `#E24B4A` border, dark red background tint
+- Critical: `#FF6B35` border, orange tint
+- Warning: `#BA7517` border, amber tint
+
+Card content:
+```
+[CRITICAL] BESS_THERMAL                        2 min ago
+Rack temperature 31.2°C exceeds critical threshold (30°C)
+Recommended: Check CDU flow rate. Verify no blocked hot aisles.
+Signal: avg_rack_temp_c | Method: hard_limit | Score: 0.82
+[Acknowledge] [Escalate]
+```
+
+**Acknowledge** button — on click, card moves to "Resolved" section with strikethrough and grey styling.
+
+**Anomaly Detection Status Panel** (right side):
+```
+Statistical Detector    🟢 Active
+Isolation Forest        🟢 Trained (847 samples)
+BESS Health Monitor     🟢 Active
+Hard Limit Checker      🟢 Active
+```
+
+**Recent Anomaly Timeline** — horizontal timeline of last 24h with coloured markers at times when anomalies occurred. Hover shows details.
+
+---
+
+**PAGE 8 — REPORTS**
+
+Header: "Site Performance Reports — Cape Town Pilot"
+
+**Report Period Selector:** dropdown — Today / Last 7 days / Last 30 days / Custom range (date pickers)
+
+**Annual Performance Summary** cards (2×3 grid):
+- Energy Savings: R 1,247,000 (annualised from period)
+- PUE Improvement: 1.85 → 1.28 (−31%)
+- Grid Import Reduction: 38.4%
+- CO₂ Avoided: 39,000 t/yr (9 sites)
+- Uptime: 99.87%
+- Client Payback: 2.8 years
+
+**Key Charts:**
+- Monthly savings trend — bar chart (green bars, `#1D9E75`)
+- Daily PUE trend — line chart showing improvement over time
+- Renewable fraction over time — area chart stacked solar/wind/biomass vs grid
+
+**Financial Model Table:**
+| Metric | Year 1 | Year 2 | Year 3 |
+|--------|--------|--------|--------|
+| Revenue (R M) | 133 | 424 | 759 |
+| EBITDA (R M) | (12.2) | 87 | 236 |
+| EBITDA Margin | −9.2% | 20.5% | 31.2% |
+| Sites Live | 1 | 4 | 9 |
+
+**Export Buttons:**
+- "Download Annual Report (PDF)" 
+- "Download Verra CSV"
+- "Export Financial Model (XLSX)"
+
+---
+
+**GLOBAL FEATURES**
+
+1. **Live data simulation** — all numbers update every 15 seconds with small random fluctuations (±3%) using `setInterval` and `useState`. BESS SoC drifts slowly, solar tracks a sine curve based on current time, grid import inversely tracks renewable generation.
+
+2. **Eskom Stage Simulator** — floating widget bottom-right: stage selector 0–8 with colour indicator. Changing stage cascades through all relevant panels: dispatch decision updates, alerts fire, GPU routing banner changes, islanding score recalculates.
+
+3. **Notification toast system** — when stage changes or anomaly triggers, show a slide-in toast notification bottom-right with severity colour and message.
+
+4. **Connection status bar** — thin bar at very top: "● SCADA Connected  ● MQTT Active  ● MLflow Tracking  ● Open-Meteo API" — each with green/red dot.
+
+5. **Loading skeleton** — on page switch, show skeleton shimmer placeholders for 400ms before content appears.
+
+6. **Responsive** — sidebar collapses to icon-only at <1200px width.
+
+---
+
+**FOOTER**
+
+Every page bottom: "AetherGrid AI | Pfunzo Ramudingana | martin19pr@gmail.com | +27 60 752 4049 | Polokwane, Limpopo, South Africa | AetherOS v0.2.0 — Early Stage · Seed Round Open"
+
+---
+
+Make it look like a real production energy management system. Every number should feel grounded and real. No placeholder content — all data should be plausible for a 5 MW AI data centre in Cape Town running on 2 MW solar, 1 MW wind, 500 kW biomass, and 10 MWh BESS with an active Eskom Stage 2 load-shedding event in progress.
