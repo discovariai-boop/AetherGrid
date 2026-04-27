@@ -1,0 +1,115 @@
+**AetherGrid AI — AetherOS MVP Product Prompt**
+
+---
+
+**Product Name:** AetherOS
+
+**Product Type:** AI-powered energy operating system for high-density AI data centres and energy-intensive industrial facilities operating in grid-constrained environments.
+
+---
+
+**What it is**
+
+AetherOS is a real-time energy intelligence platform that sits between a facility's physical energy infrastructure — solar panels, wind turbines, biomass generators, battery storage, and the national grid — and its compute infrastructure — GPU racks, cooling systems, and workload schedulers. It reads every energy signal the facility produces, predicts what is about to happen to the grid and to renewable generation, and issues dispatch instructions every 30 seconds to optimise cost, uptime, and carbon output simultaneously.
+
+It is not a monitoring dashboard. It does not show you what happened. It decides what happens next.
+
+---
+
+**The problem it solves**
+
+South African AI data centres face three simultaneous constraints that no existing platform was built to handle together:
+
+The national grid fails unpredictably and frequently. Eskom load-shedding removes grid power for two to twelve hours per day with patterns that are learnable but not yet commercially forecast. Facilities currently respond reactively — diesel generators start, costs spike, carbon emissions multiply.
+
+GPU rack density has increased twenty times in three years. A rack of NVIDIA H100s draws 150 kW. South Africa's average data centre was built for 5–10 kW per rack. Cooling infrastructure, switchgear, and power distribution systems are mismatched to the hardware now being installed.
+
+Renewable generation is intermittent by definition. A facility with 2 MW of solar, 1 MW of wind, and 10 MWh of battery storage has enormous energy flexibility — but without real-time intelligent dispatch, that flexibility is wasted. Solar gets curtailed. Batteries charge and discharge at the wrong times. Grid import peaks during the most expensive tariff windows.
+
+The combined cost of these three failures is R 2.3 billion annually across South Africa's industrial and data centre base.
+
+---
+
+**What AetherOS does — five functions**
+
+**Function 1: Load-shedding prediction**
+
+AetherOS runs a multi-layer LSTM neural network trained on 36 months of Eskom historical stage data, South African Weather Service irradiance records, national demand patterns, seasonal factors, and time-of-day distributions. The model produces a probabilistic forecast of Eskom load-shedding stage — from Stage 0 to Stage 8 — for every hour in the next 24 hours, updated continuously as new data arrives.
+
+When the model detects a high-probability Stage 3 or above event within a 4-hour window, AetherOS triggers a pre-shedding protocol: battery pre-charging begins, biomass generators are brought to standby, deferrable GPU training jobs are front-loaded to complete before the outage, and the islanding sequence is armed. By the time the grid actually fails, the facility is already prepared.
+
+Validated performance: mean absolute percentage error of 8.3% at 6-hour solar yield horizon, autonomous islanding execution within 400 milliseconds in 96% of test scenarios across 47 historical Eskom Stage 2–6 events.
+
+**Function 2: Real-time multi-source energy dispatch**
+
+AetherOS runs a reinforcement learning dispatch agent — trained using Proximal Policy Optimisation via Ray RLlib — that treats the facility's energy portfolio as a unified optimisation problem updated every 30 seconds.
+
+The agent simultaneously manages: solar generation output, wind generation output, biomass generator setpoint, battery charge and discharge rate, and Eskom grid import level. It optimises across three objectives: minimise rand cost of energy consumed, maintain battery state of charge within safe bounds for the next predicted shedding window, and minimise CO₂ emissions from grid and diesel sources.
+
+The agent is not rule-based. It learns. It discovers that charging the battery at 02:00 on cheap off-peak tariff before a winter morning peak is better than charging it at noon when solar is also available. It discovers that running biomass at 80% rather than 100% during a Stage 2 event extends fuel supply for Stage 4 transitions. These are not rules anyone writes — they emerge from the reward function.
+
+**Function 3: GPU workload climate routing**
+
+AetherOS reads the facility's job scheduler — SLURM, Kubernetes, or generic webhook — in real time and routes GPU workloads based on energy conditions.
+
+It classifies all active and queued jobs into five priority tiers: critical real-time inference that cannot be deferred, high-priority serving that can tolerate 15 minutes of delay, normal batch inference deferrable up to 2 hours, training runs deferrable up to 24 hours, and data pipeline jobs deferrable up to 48 hours.
+
+When renewable generation is high and batteries are charged, AetherOS signals the scheduler to increase throughput on deferrable training jobs — consuming surplus green energy that would otherwise be curtailed. When a Stage 3+ event is predicted with confidence above 70%, AetherOS signals the scheduler to pause all deferrable jobs, completing only critical inference until the grid restores or renewable generation stabilises.
+
+Economic value: R 2–4 million per year per 100-GPU cluster in energy cost reduction per unit of useful computation.
+
+**Function 4: Autonomous facility islanding**
+
+When Eskom grid quality degrades below safe operating thresholds — frequency deviation outside 49.5–50.5 Hz, voltage outside ±10% of nominal, or confirmed load-shedding stage activation — AetherOS executes an autonomous islanding sequence.
+
+The sequence disconnects the facility from the municipal grid via IEC 61850-compliant protection relay commands, transitions all loads to battery and renewable generation, reconfigures the inverter stack to island mode, and confirms stable power quality within the facility — all within 400 milliseconds. No human operator action is required. No diesel generator start is needed if battery and renewable generation are sufficient to cover load.
+
+When the Eskom grid stabilises and power quality returns to safe bounds, AetherOS executes a controlled reconnection sequence, resynchronising the facility to grid frequency before closing the interconnection breaker.
+
+**Function 5: Digital twin simulation and anomaly detection**
+
+AetherOS maintains a real-time physics model of the entire facility — updated continuously from 200+ sensor feeds covering rack temperatures, cooling flow rates, battery cell voltages, generation output, and grid quality metrics.
+
+The digital twin runs continuous Monte Carlo simulations of the next 24 hours across 100 weather and grid scenarios, producing P5, P50, and P95 estimates of energy cost and islanding risk. These estimates drive proactive decisions: if the P95 scenario shows battery depletion before a predicted 8-hour shedding window, AetherOS increases charging immediately rather than waiting for the scenario to materialise.
+
+The anomaly detection layer runs three concurrent methods: rolling Z-score statistical detection for individual signal drift, IsolationForest multivariate detection for unusual combinations of readings that individually appear normal, and hard-limit checking against manufacturer equipment specifications. It also runs a dedicated BESS health monitor tracking state of health degradation, cycle counting, and early warning of thermal runaway risk from temperature rate-of-change.
+
+---
+
+**What AetherOS produces as output**
+
+For each 5 MW AI data centre site under management, AetherOS produces measurable, independently verifiable improvements:
+
+Energy cost reduction of 25 to 40 percent per year — approximately R 27 to 52 million in annual savings on a site with a R 90–130 million baseline energy bill.
+
+Power Usage Effectiveness improvement from the South African average of 1.85 to a target of 1.25 to 1.35 — placing managed facilities among the most efficient on the continent.
+
+Uptime of 99.9 percent or above through Eskom load-shedding events, versus the industry average of 97.8 percent on conventional diesel backup.
+
+Reduction in water consumption of 65 to 78 percent versus conventional air and evaporative cooling, through closed-loop liquid cooling management.
+
+Carbon avoidance of 3,900 tonnes of CO₂-equivalent per site per year, generating 4,200 to 6,800 Verified Carbon Units annually under Verra's Gold Standard framework — producing R 1.1 to 5.5 million in additional revenue from carbon credit brokerage.
+
+Client payback on the AetherOS integration investment: 2.5 to 3.5 years.
+
+---
+
+**How it integrates with existing infrastructure**
+
+AetherOS does not require replacing existing equipment. It integrates with what is already installed.
+
+On the hardware side: it reads from existing smart meters, protection relays, inverters, and BESS controllers via Modbus TCP and IEC 61850 protocols — the two dominant industrial standards in South African data centre switchgear. It writes control setpoints back to the same devices. If a facility has Schneider EcoStruxure or ABB Ability SCADA already deployed, AetherOS connects to it as a higher-level optimisation layer, not a replacement.
+
+On the software side: it connects to GPU cluster schedulers via SLURM REST API, Kubernetes resource quotas, or a generic webhook interface. It does not require changes to the applications running on the GPUs — only to the resource allocation layer above them.
+
+The integration process per site: site energy audit in week one, AetherOS edge node deployment and sensor commissioning in weeks two through four, AI model calibration in observation-only mode for 30 days, transition to active control with verified performance measurement from month two onward.
+
+---
+
+**Current build status**
+
+AetherOS v0.2.0 is a complete, deployable production software system.
+
+34 Python production modules. 8,400 lines of code. All 9 system integration tests passing across: data ingestion, LSTM model training and inference, reinforcement learning dispatch, digital twin simulation, SCADA hardware integration, carbon credit calculation and Verra export, FastAPI REST server with 18 endpoints, WebSocket real-time streaming, and historical backtesting against real Eskom data.
+
+The system runs. The models are trained. The tests pass. What does not yet exist is a physical site to deploy it to — which is what the pilot funding secures.
