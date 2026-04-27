@@ -23,9 +23,9 @@ export default function OverviewPage() {
         title="Overview"
         subtitle="Cape Town Pilot · Live operations"
         right={
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(0,201,167,0.08)] border border-[rgba(0,201,167,0.25)]">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(37,99,235,0.08)] border border-[rgba(37,99,235,0.25)]">
             <span className="pulse-dot teal" />
-            <span className="text-[11px] font-mono-num text-[#00C9A7] uppercase tracking-wider">System Active</span>
+            <span className="text-[11px] font-mono-num text-[#2563EB] uppercase tracking-wider">System Active</span>
           </div>
         }
       />
@@ -45,7 +45,7 @@ export default function OverviewPage() {
           value={metrics.pue.toFixed(2)}
           sublabel="vs 1.85 SA average"
           delta={{ value: "−31% better", positive: true }}
-          icon={<Activity size={16} className="text-[#00C9A7]" />}
+          icon={<Activity size={16} className="text-[#2563EB]" />}
         />
         <StatCard
           label="Eskom Stage"
@@ -55,21 +55,21 @@ export default function OverviewPage() {
             </span>
           }
           sublabel={stage > 0 ? "Load-shedding active" : "Grid stable"}
-          icon={<span className="text-[10px] font-mono-num uppercase tracking-wider px-2 py-1 rounded-full bg-[rgba(0,201,167,0.15)] text-[#00C9A7] border border-[rgba(0,201,167,0.3)]">Islanded ✓</span>}
+          icon={<span className="text-[10px] font-mono-num uppercase tracking-wider px-2 py-1 rounded-full bg-[rgba(37,99,235,0.15)] text-[#2563EB] border border-[rgba(37,99,235,0.3)]">Islanded ✓</span>}
         />
         <StatCard
           label="Active Solar"
           value={metrics.solarMw.toFixed(2)}
           unit="MW"
           accent="amber"
-          icon={<Sun size={16} className="text-[#FFB300]" />}
+          icon={<Sun size={16} className="text-[#60A5FA]" />}
           sublabel={`${Math.round((metrics.solarMw / 2) * 100)}% of 2 MW capacity`}
         />
         <StatCard
           label="Energy Savings Today"
           value={fmtR(metrics.energySavingsR)}
           accent="green"
-          icon={<Zap size={16} className="text-[#1D9E75]" />}
+          icon={<Zap size={16} className="text-[#0EA5E9]" />}
           sublabel="vs baseline grid cost"
         />
         <StatCard
@@ -77,7 +77,7 @@ export default function OverviewPage() {
           value={metrics.co2AvoidedT.toFixed(2)}
           unit="t"
           accent="green"
-          icon={<Leaf size={16} className="text-[#1D9E75]" />}
+          icon={<Leaf size={16} className="text-[#0EA5E9]" />}
           sublabel="this session"
         />
       </div>
@@ -88,14 +88,14 @@ export default function OverviewPage() {
         <div className="xl:col-span-3 card-surface p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h2 className="font-display font-semibold text-white text-base">Live Energy Flow</h2>
-              <p className="text-[11px] text-[#7B8FAB] font-mono-num">Last 24 hours · MW</p>
+              <h2 className="font-display font-semibold text-[#0F172A] text-base">Live Energy Flow</h2>
+              <p className="text-[11px] text-[#64748B] font-mono-num">Last 24 hours · MW</p>
             </div>
-            <div className="flex items-center gap-2 text-[11px] font-mono-num text-[#7B8FAB]">
+            <div className="flex items-center gap-2 text-[11px] font-mono-num text-[#64748B]">
               <span className="pulse-dot teal" /> Live · {new Date(metrics.updatedAt).toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
             </div>
           </div>
-          <div className="h-[330px] w-full bg-[#060F1E] rounded-lg p-3">
+          <div className="h-[330px] w-full bg-[rgba(241,245,249,0.7)] rounded-lg p-3">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={history} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
                 <defs>
@@ -116,7 +116,7 @@ export default function OverviewPage() {
                     <stop offset="100%" stopColor={COLORS.purple} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="rgba(0,201,167,0.07)" strokeDasharray="3 3" vertical={false} />
+                <CartesianGrid stroke="rgba(37,99,235,0.07)" strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="t" tick={{ fontSize: 10 }} interval={3} />
                 <YAxis tick={{ fontSize: 10 }} unit=" MW" width={50} />
                 <Tooltip />
@@ -125,7 +125,7 @@ export default function OverviewPage() {
                 <Area type="monotone" dataKey="wind" stroke={COLORS.primary} strokeWidth={2} fill="url(#windGrad)" name="Wind" />
                 <Area type="monotone" dataKey="grid" stroke={COLORS.danger} strokeWidth={2} fill="url(#gridGrad)" name="Grid Import" />
                 <Area type="monotone" dataKey="bess" stroke={COLORS.purple} strokeWidth={2} fill="url(#bessGrad)" name="BESS" />
-                <Area type="monotone" dataKey="load" stroke="#F0F4FF" strokeWidth={1.5} strokeDasharray="4 4" fillOpacity={0} name="Total Load" />
+                <Area type="monotone" dataKey="load" stroke="#0F172A" strokeWidth={1.5} strokeDasharray="4 4" fillOpacity={0} name="Total Load" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -137,10 +137,10 @@ export default function OverviewPage() {
           <div className="card-surface p-4">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <h3 className="font-display font-semibold text-white text-sm">Dispatch Decision</h3>
-                <p className="text-[10px] text-[#7B8FAB] font-mono-num mt-0.5">Updated {Math.round((Date.now() - metrics.updatedAt) / 1000)}s ago</p>
+                <h3 className="font-display font-semibold text-[#0F172A] text-sm">Dispatch Decision</h3>
+                <p className="text-[10px] text-[#64748B] font-mono-num mt-0.5">Updated {Math.round((Date.now() - metrics.updatedAt) / 1000)}s ago</p>
               </div>
-              <span className="text-[9px] font-mono-num uppercase tracking-wider px-2 py-1 rounded bg-[rgba(0,201,167,0.15)] text-[#00C9A7]">AI Decision</span>
+              <span className="text-[9px] font-mono-num uppercase tracking-wider px-2 py-1 rounded bg-[rgba(37,99,235,0.15)] text-[#2563EB]">AI Decision</span>
             </div>
             <DecisionRow label="BESS" value={dispatch.bessAction} pct={dispatch.bessPctAction} color={COLORS.danger} />
             <DecisionRow label="Biomass" value={`${dispatch.biomassPct}% rated capacity`} pct={dispatch.biomassPct} color={COLORS.success} />
@@ -149,13 +149,13 @@ export default function OverviewPage() {
 
           {/* Islanding gauge */}
           <div className="card-surface p-4">
-            <h3 className="font-display font-semibold text-white text-sm mb-3">Islanding Readiness Score</h3>
+            <h3 className="font-display font-semibold text-[#0F172A] text-sm mb-3">Islanding Readiness Score</h3>
             <div className="flex items-center justify-center">
               <Gauge value={metrics.islandingScore} />
             </div>
             <div className="mt-3 flex justify-between text-[11px] font-mono-num">
-              <span className="text-[#1D9E75]">Can sustain 4h ✓</span>
-              <span className={metrics.islandingScore >= 80 ? "text-[#1D9E75]" : "text-[#E24B4A]"}>
+              <span className="text-[#0EA5E9]">Can sustain 4h ✓</span>
+              <span className={metrics.islandingScore >= 80 ? "text-[#0EA5E9]" : "text-[#1E3A8A]"}>
                 Can sustain 8h {metrics.islandingScore >= 80 ? "✓" : "✗"}
               </span>
             </div>
@@ -163,21 +163,21 @@ export default function OverviewPage() {
 
           {/* Shedding risk */}
           <div className="card-surface p-4">
-            <h3 className="font-display font-semibold text-white text-sm mb-3">Next Shedding Risk · 6h</h3>
+            <h3 className="font-display font-semibold text-[#0F172A] text-sm mb-3">Next Shedding Risk · 6h</h3>
             <div className="h-[120px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={sheddingRisk} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
-                  <CartesianGrid stroke="rgba(0,201,167,0.05)" vertical={false} />
+                  <CartesianGrid stroke="rgba(37,99,235,0.05)" vertical={false} />
                   <XAxis dataKey="h" tick={{ fontSize: 10 }} />
                   <YAxis tick={{ fontSize: 10 }} unit="%" width={40} />
-                  <Tooltip cursor={{ fill: "rgba(0,201,167,0.05)" }} />
+                  <Tooltip cursor={{ fill: "rgba(37,99,235,0.05)" }} />
                   <Bar dataKey="p" radius={[3,3,0,0]}>
                     {sheddingRisk.map((d, i) => <Cell key={i} fill={riskColor(d.p)} />)}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            <div className="mt-2 flex justify-between text-[10px] font-mono-num text-[#7B8FAB]">
+            <div className="mt-2 flex justify-between text-[10px] font-mono-num text-[#64748B]">
               {sheddingRisk.map((d) => <span key={d.h}>{d.h} {d.p}%</span>)}
             </div>
           </div>
@@ -186,9 +186,9 @@ export default function OverviewPage() {
 
       {/* Side context strip */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-        <MiniCard label="Renewable fraction" value={`${renewablePct.toFixed(1)}%`} icon={<Sun size={14} className="text-[#FFB300]" />} />
-        <MiniCard label="Grid import" value={`${metrics.gridImportMw.toFixed(2)} MW`} icon={<Zap size={14} className="text-[#E24B4A]" />} />
-        <MiniCard label="Wind generation" value={`${metrics.windMw.toFixed(2)} MW`} icon={<Wind size={14} className="text-[#00C9A7]" />} />
+        <MiniCard label="Renewable fraction" value={`${renewablePct.toFixed(1)}%`} icon={<Sun size={14} className="text-[#60A5FA]" />} />
+        <MiniCard label="Grid import" value={`${metrics.gridImportMw.toFixed(2)} MW`} icon={<Zap size={14} className="text-[#1E3A8A]" />} />
+        <MiniCard label="Wind generation" value={`${metrics.windMw.toFixed(2)} MW`} icon={<Wind size={14} className="text-[#2563EB]" />} />
       </div>
     </Layout>
   );
@@ -198,10 +198,10 @@ function DecisionRow({ label, value, pct, color }: { label: string; value: strin
   return (
     <div className="mb-2.5 last:mb-0">
       <div className="flex items-center justify-between text-[11.5px] mb-1">
-        <span className="text-[#7B8FAB] font-mono-num uppercase tracking-wider">{label}</span>
-        <span className="text-white font-medium">{value}</span>
+        <span className="text-[#64748B] font-mono-num uppercase tracking-wider">{label}</span>
+        <span className="text-[#0F172A] font-medium">{value}</span>
       </div>
-      <div className="h-1.5 rounded-full bg-[#0A1628] overflow-hidden">
+      <div className="h-1.5 rounded-full bg-[#F1F5F9] overflow-hidden">
         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${Math.abs(pct)}%`, background: color, boxShadow: `0 0 8px ${color}80` }} />
       </div>
     </div>
@@ -215,7 +215,7 @@ function Gauge({ value }: { value: number }) {
   const color = value >= 75 ? COLORS.success : value >= 50 ? COLORS.primary : value >= 25 ? COLORS.warning : COLORS.danger;
   return (
     <svg viewBox="0 0 160 96" className="w-44 h-28">
-      <path d={`M 16 80 A ${r} ${r} 0 0 1 144 80`} stroke="#0A1628" strokeWidth="10" fill="none" strokeLinecap="round" />
+      <path d={`M 16 80 A ${r} ${r} 0 0 1 144 80`} stroke="#F1F5F9" strokeWidth="10" fill="none" strokeLinecap="round" />
       <path
         d={`M 16 80 A ${r} ${r} 0 0 1 144 80`}
         stroke={color}
@@ -225,8 +225,8 @@ function Gauge({ value }: { value: number }) {
         strokeDasharray={`${dash} ${circ}`}
         style={{ transition: "stroke-dasharray 700ms ease, stroke 300ms" }}
       />
-      <text x="80" y="74" textAnchor="middle" fill="#F0F4FF" fontSize="26" fontWeight="700" fontFamily="DM Mono">{Math.round(value)}</text>
-      <text x="80" y="90" textAnchor="middle" fill="#7B8FAB" fontSize="10" fontFamily="DM Mono">/ 100</text>
+      <text x="80" y="74" textAnchor="middle" fill="#0F172A" fontSize="26" fontWeight="700" fontFamily="DM Mono">{Math.round(value)}</text>
+      <text x="80" y="90" textAnchor="middle" fill="#64748B" fontSize="10" fontFamily="DM Mono">/ 100</text>
     </svg>
   );
 }
@@ -245,10 +245,10 @@ function BatteryAnim({ soc }: { soc: number }) {
 function MiniCard({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
   return (
     <div className="card-surface px-4 py-3 flex items-center gap-3">
-      <div className="w-8 h-8 rounded-md bg-[rgba(0,201,167,0.08)] flex items-center justify-center">{icon}</div>
+      <div className="w-8 h-8 rounded-md bg-[rgba(37,99,235,0.08)] flex items-center justify-center">{icon}</div>
       <div>
-        <div className="text-[10px] uppercase tracking-wider text-[#7B8FAB] font-mono-num">{label}</div>
-        <div className="text-white font-display font-semibold font-mono-num text-base">{value}</div>
+        <div className="text-[10px] uppercase tracking-wider text-[#64748B] font-mono-num">{label}</div>
+        <div className="text-[#0F172A] font-display font-semibold font-mono-num text-base">{value}</div>
       </div>
     </div>
   );

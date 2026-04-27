@@ -40,11 +40,18 @@ building an AI-Thermal-Smart Grid OS for AI data centres operating during Eskom 
 
 ## Design tokens
 
-- Background `#0A1628` (deep navy), surface `#0F2040`, primary teal `#00C9A7`.
-- Stage palette: green (S0), gold (S1–2), orange (S3–4), red (S5+).
-- Custom CSS utilities in `src/index.css`: `card-surface`, `pulse-dot`,
+- Light glassmorphic theme — page bg slate-100 `#F1F5F9` with radial blue/indigo/sky
+  gradients. Surfaces are translucent white (`rgba(255,255,255,0.65)`) with backdrop blur.
+- **Blue-only palette** (no teal/green/orange/red/gold/purple). Accents: primary
+  blue-600 `#2563EB`, secondary blue-700 `#1D4ED8`, sky-500 `#0EA5E9`, blue-300/400
+  `#60A5FA`/`#93C5FD`, indigo-500 `#6366F1`, deep blue-900 `#1E3A8A` (used in place
+  of any "danger" red), slate-600 `#475569` (used in place of any "warning" amber).
+- Stage palette (Eskom): all blues — sky (S0), blue-300 (S1–2), blue-500 (S3–4),
+  blue-900 (S5+). See `stageColor()` in `src/lib/sim.ts`.
+- Body text slate-900 `#0F172A`; muted slate-500 `#64748B`.
+- Custom CSS utilities in `src/index.css`: `card-surface` (glass), `pulse-dot`,
   `glow-orb`, `flow-line`, `font-display`, `font-mono-num`, `stage-N`.
-- App is always dark — same vars on `:root` and `.dark`; `<html>` carries `class="dark"`.
+- App is always light — `<html>` carries no `class="dark"`.
 
 ## Founder / contact (rendered in footer)
 

@@ -24,8 +24,8 @@ export default function ForecastingPage() {
         title="Forecasting"
         subtitle="Eskom + renewable yield · 24–48h outlook"
         right={
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(0,201,167,0.08)] border border-[rgba(0,201,167,0.25)]">
-            <span className="text-[11px] font-mono-num text-[#00C9A7] uppercase tracking-wider">LSTM v0.4 + Open-Meteo</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(37,99,235,0.08)] border border-[rgba(37,99,235,0.25)]">
+            <span className="text-[11px] font-mono-num text-[#2563EB] uppercase tracking-wider">LSTM v0.4 + Open-Meteo</span>
           </div>
         }
       />
@@ -34,18 +34,18 @@ export default function ForecastingPage() {
         {/* Eskom forecast */}
         <div className="card-surface p-4">
           <div className="mb-3">
-            <h2 className="font-display font-semibold text-white text-base">24h Eskom Stage Forecast</h2>
-            <p className="text-[11px] text-[#7B8FAB] font-mono-num">Cape Town · LSTM ensemble</p>
+            <h2 className="font-display font-semibold text-[#0F172A] text-base">24h Eskom Stage Forecast</h2>
+            <p className="text-[11px] text-[#64748B] font-mono-num">Cape Town · LSTM ensemble</p>
           </div>
 
-          <div className="h-[280px] bg-[#060F1E] rounded-lg p-3 mb-3">
+          <div className="h-[280px] bg-[rgba(241,245,249,0.7)] rounded-lg p-3 mb-3">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={stageForecast} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid stroke="rgba(0,201,167,0.06)" vertical={false} />
+                <CartesianGrid stroke="rgba(37,99,235,0.06)" vertical={false} />
                 <XAxis dataKey="label" tick={{ fontSize: 10 }} interval={2} />
                 <YAxis tick={{ fontSize: 10 }} domain={[0, 8]} ticks={[0,2,4,6,8]} width={32} />
                 <Tooltip
-                  cursor={{ fill: "rgba(0,201,167,0.05)" }}
+                  cursor={{ fill: "rgba(37,99,235,0.05)" }}
                   formatter={(v: number, _: string, p: { payload?: { probability?: number } }) => [`Stage ${v} (${Math.round((p.payload?.probability ?? 0) * 100)}%)`, "Forecast"]}
                 />
                 <Bar dataKey="stage" radius={[3, 3, 0, 0]}>
@@ -63,11 +63,11 @@ export default function ForecastingPage() {
           </div>
 
           {peakWindow.length > 0 && (
-            <div className="border border-[#BA7517]/40 bg-[rgba(186,117,23,0.08)] rounded-md p-3 flex items-start gap-3">
-              <AlertTriangle size={18} className="text-[#BA7517] flex-shrink-0 mt-0.5" />
+            <div className="border border-[#475569]/40 bg-[rgba(71,85,105,0.08)] rounded-md p-3 flex items-start gap-3">
+              <AlertTriangle size={18} className="text-[#475569] flex-shrink-0 mt-0.5" />
               <div>
-                <div className="text-[#FFB300] text-[12px] font-semibold">⚠ High risk window</div>
-                <div className="text-[11px] text-white/85 font-mono-num mt-0.5">{peakLabel}</div>
+                <div className="text-[#60A5FA] text-[12px] font-semibold">⚠ High risk window</div>
+                <div className="text-[11px] text-[#475569] font-mono-num mt-0.5">{peakLabel}</div>
               </div>
             </div>
           )}
@@ -76,14 +76,14 @@ export default function ForecastingPage() {
         {/* Renewable forecast */}
         <div className="card-surface p-4">
           <div className="mb-3">
-            <h2 className="font-display font-semibold text-white text-base">Renewable Yield Forecast · 48h</h2>
-            <p className="text-[11px] text-[#7B8FAB] font-mono-num">Solar + wind · forecast vs actual</p>
+            <h2 className="font-display font-semibold text-[#0F172A] text-base">Renewable Yield Forecast · 48h</h2>
+            <p className="text-[11px] text-[#64748B] font-mono-num">Solar + wind · forecast vs actual</p>
           </div>
 
-          <div className="h-[280px] bg-[#060F1E] rounded-lg p-3 mb-3">
+          <div className="h-[280px] bg-[rgba(241,245,249,0.7)] rounded-lg p-3 mb-3">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={renewable} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid stroke="rgba(0,201,167,0.06)" vertical={false} />
+                <CartesianGrid stroke="rgba(37,99,235,0.06)" vertical={false} />
                 <XAxis dataKey="t" tick={{ fontSize: 9 }} interval={5} />
                 <YAxis tick={{ fontSize: 10 }} unit=" MW" width={48} />
                 <Tooltip />
@@ -121,18 +121,18 @@ export default function ForecastingPage() {
 
 function ModelGate({ name, gates }: { name: string; gates: { metric: string; value: string; passed: boolean }[] }) {
   return (
-    <div className="bg-[#0A1628] rounded-md px-3 py-2.5 border border-[rgba(0,201,167,0.08)]">
-      <div className="text-[12px] text-white font-semibold mb-1.5">{name}</div>
+    <div className="bg-[#F1F5F9] rounded-md px-3 py-2.5 border border-[rgba(37,99,235,0.08)]">
+      <div className="text-[12px] text-[#0F172A] font-semibold mb-1.5">{name}</div>
       <div className="space-y-1">
         {gates.map((g) => (
           <div key={g.metric} className="flex items-center justify-between text-[11px] font-mono-num">
-            <span className="text-[#7B8FAB]">{g.metric}</span>
-            <span className="text-white flex items-center gap-1.5">
+            <span className="text-[#64748B]">{g.metric}</span>
+            <span className="text-[#0F172A] flex items-center gap-1.5">
               {g.value}
               {g.passed
-                ? <CheckCircle2 size={12} className="text-[#1D9E75]" />
-                : <span className="text-[#E24B4A]">✗</span>}
-              <span className={g.passed ? "text-[#1D9E75] text-[10px]" : "text-[#E24B4A] text-[10px]"}>
+                ? <CheckCircle2 size={12} className="text-[#0EA5E9]" />
+                : <span className="text-[#1E3A8A]">✗</span>}
+              <span className={g.passed ? "text-[#0EA5E9] text-[10px]" : "text-[#1E3A8A] text-[10px]"}>
                 {g.passed ? "Gate passed" : "Gate failed"}
               </span>
             </span>

@@ -9,18 +9,18 @@ const CONNECTIONS: Conn[] = [
 
 export function ConnectionBar() {
   return (
-    <div className="h-7 flex items-center gap-5 px-6 bg-[#060F1E] border-b border-[rgba(0,201,167,0.1)] text-[10.5px] font-mono-num text-[#7B8FAB] uppercase tracking-wider relative z-30">
+    <div className="h-7 flex items-center gap-5 px-6 bg-[rgba(241,245,249,0.7)] border-b border-[rgba(37,99,235,0.1)] text-[10.5px] font-mono-num text-[#64748B] uppercase tracking-wider relative z-30">
       {CONNECTIONS.map((c) => (
         <div key={c.label} className="flex items-center gap-1.5">
           <span className={[
             "inline-block w-1.5 h-1.5 rounded-full",
-            c.status === "ok" ? "bg-[#1D9E75]" : c.status === "warn" ? "bg-[#BA7517]" : "bg-[#E24B4A]",
+            c.status === "ok" ? "bg-[#0EA5E9]" : c.status === "warn" ? "bg-[#475569]" : "bg-[#1E3A8A]",
           ].join(" ")} />
           <span>{c.label}</span>
         </div>
       ))}
       <div className="flex-1" />
-      <span className="text-[#00C9A7]">{new Date().toLocaleString("en-ZA", { hour: "2-digit", minute: "2-digit", second: "2-digit", day: "2-digit", month: "short" })} SAST</span>
+      <span className="text-[#2563EB]">{new Date().toLocaleString("en-ZA", { hour: "2-digit", minute: "2-digit", second: "2-digit", day: "2-digit", month: "short" })} SAST</span>
     </div>
   );
 }

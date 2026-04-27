@@ -83,7 +83,7 @@ export function SystemProvider({ children }: { children: ReactNode }) {
         description: stage === 0
           ? "Grid synchronisation re-engaged."
           : `Pre-charging BESS, deferring ${stage >= 3 ? "all training jobs" : "non-critical workloads"}, islanding protocol ${stage >= 4 ? "armed" : "ready"}.`,
-        className: stage >= 3 ? "border-l-4 border-l-[#E24B4A]" : "border-l-4 border-l-[#BA7517]",
+        className: stage >= 3 ? "border-l-4 border-l-[#1E3A8A]" : "border-l-4 border-l-[#475569]",
       });
 
       if (stage >= 2) {

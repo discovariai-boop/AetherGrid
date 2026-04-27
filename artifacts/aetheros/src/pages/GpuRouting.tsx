@@ -37,30 +37,30 @@ export default function GpuRoutingPage() {
 
       {/* KPI strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <Kpi label="Active GPU power" value={`${totalActiveKw} kW`} icon={<Zap size={14} className="text-[#00C9A7]" />} />
-        <Kpi label="Deferred GPUs" value={`${totalDeferredGpus}`} icon={<Pause size={14} className="text-[#BA7517]" />} />
-        <Kpi label="Carbon-aware deferred" value={`${carbonAvoidedKg.toFixed(1)} kg CO₂`} icon={<Server size={14} className="text-[#1D9E75]" />} accent="green" />
+        <Kpi label="Active GPU power" value={`${totalActiveKw} kW`} icon={<Zap size={14} className="text-[#2563EB]" />} />
+        <Kpi label="Deferred GPUs" value={`${totalDeferredGpus}`} icon={<Pause size={14} className="text-[#475569]" />} />
+        <Kpi label="Carbon-aware deferred" value={`${carbonAvoidedKg.toFixed(1)} kg CO₂`} icon={<Server size={14} className="text-[#0EA5E9]" />} accent="green" />
         <Kpi label="Eskom Stage" value={`S${stage}`} icon={<span className="pulse-dot amber" />} accent="amber" />
       </div>
 
       {/* Strategy banner */}
-      <div className="card-surface p-4 mb-4 border-l-4 border-l-[#00C9A7]">
-        <div className="text-[10px] uppercase tracking-wider font-mono-num text-[#00C9A7] mb-1">Active Strategy · {dispatch.gpuRouting}</div>
-        <div className="text-white text-sm">
+      <div className="card-surface p-4 mb-4 border-l-4 border-l-[#2563EB]">
+        <div className="text-[10px] uppercase tracking-wider font-mono-num text-[#2563EB] mb-1">Active Strategy · {dispatch.gpuRouting}</div>
+        <div className="text-[#0F172A] text-sm">
           Stage {stage} active — {dispatch.gpuDeferrablePct}% of deferrable workload paused. Critical inference protected. Carbon-optimal training rescheduled to renewable peak window.
         </div>
       </div>
 
       {/* Job table */}
       <div className="card-surface overflow-hidden">
-        <div className="px-4 py-3 border-b border-[rgba(0,201,167,0.1)] flex items-center justify-between">
-          <h3 className="font-display font-semibold text-white text-sm">Active Workload Queue</h3>
-          <span className="text-[10px] font-mono-num text-[#7B8FAB] uppercase tracking-wider">{JOBS.length} jobs · NVIDIA H100 fleet</span>
+        <div className="px-4 py-3 border-b border-[rgba(37,99,235,0.1)] flex items-center justify-between">
+          <h3 className="font-display font-semibold text-[#0F172A] text-sm">Active Workload Queue</h3>
+          <span className="text-[10px] font-mono-num text-[#64748B] uppercase tracking-wider">{JOBS.length} jobs · NVIDIA H100 fleet</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-[12px]">
-            <thead className="text-[10px] uppercase tracking-wider text-[#7B8FAB] font-mono-num">
-              <tr className="border-b border-[rgba(0,201,167,0.08)]">
+            <thead className="text-[10px] uppercase tracking-wider text-[#64748B] font-mono-num">
+              <tr className="border-b border-[rgba(37,99,235,0.08)]">
                 <th className="text-left px-4 py-2.5">Job</th>
                 <th className="text-left px-4 py-2.5">Tier</th>
                 <th className="text-left px-4 py-2.5">Status</th>
@@ -73,16 +73,16 @@ export default function GpuRoutingPage() {
             </thead>
             <tbody className="font-mono-num">
               {JOBS.map((j) => (
-                <tr key={j.id} data-testid={`row-job-${j.id}`} className="border-b border-[rgba(0,201,167,0.04)] last:border-0 hover:bg-[rgba(0,201,167,0.03)]">
-                  <td className="px-4 py-3 text-white">{j.name}</td>
+                <tr key={j.id} data-testid={`row-job-${j.id}`} className="border-b border-[rgba(37,99,235,0.04)] last:border-0 hover:bg-[rgba(37,99,235,0.03)]">
+                  <td className="px-4 py-3 text-[#0F172A]">{j.name}</td>
                   <td className="px-4 py-3"><TierBadge tier={j.tier} /></td>
                   <td className="px-4 py-3"><StatusBadge status={j.status} /></td>
-                  <td className="px-4 py-3 text-right text-white">{j.gpus}</td>
-                  <td className="px-4 py-3 text-right text-[#00C9A7]">{j.powerKw} kW</td>
-                  <td className="px-4 py-3 text-right text-[#7B8FAB]">{j.eta}</td>
-                  <td className="px-4 py-3 text-right text-[#7B8FAB]">{j.carbonGCo2} g/h</td>
+                  <td className="px-4 py-3 text-right text-[#0F172A]">{j.gpus}</td>
+                  <td className="px-4 py-3 text-right text-[#2563EB]">{j.powerKw} kW</td>
+                  <td className="px-4 py-3 text-right text-[#64748B]">{j.eta}</td>
+                  <td className="px-4 py-3 text-right text-[#64748B]">{j.carbonGCo2} g/h</td>
                   <td className="px-4 py-3 text-right">
-                    <button className="text-[#00C9A7] hover:text-white text-[11px]" data-testid={`button-job-action-${j.id}`}>
+                    <button className="text-[#2563EB] hover:text-[#1D4ED8] text-[11px]" data-testid={`button-job-action-${j.id}`}>
                       {j.status === "running" ? "Throttle" : j.status === "throttled" ? "Resume" : "Force run"}
                     </button>
                   </td>
@@ -113,12 +113,12 @@ function Pill({ color, children, dot }: { color: string; children: React.ReactNo
 }
 
 function Kpi({ label, value, icon, accent }: { label: string; value: string; icon: React.ReactNode; accent?: "green" | "amber" }) {
-  const c = accent === "green" ? "text-[#1D9E75]" : accent === "amber" ? "text-[#FFB300]" : "text-white";
+  const c = accent === "green" ? "text-[#0EA5E9]" : accent === "amber" ? "text-[#60A5FA]" : "text-[#0F172A]";
   return (
     <div className="card-surface px-4 py-3 flex items-center gap-3">
-      <div className="w-9 h-9 rounded-md bg-[rgba(0,201,167,0.08)] flex items-center justify-center">{icon}</div>
+      <div className="w-9 h-9 rounded-md bg-[rgba(37,99,235,0.08)] flex items-center justify-center">{icon}</div>
       <div>
-        <div className="text-[10px] uppercase tracking-wider text-[#7B8FAB] font-mono-num">{label}</div>
+        <div className="text-[10px] uppercase tracking-wider text-[#64748B] font-mono-num">{label}</div>
         <div className={`font-display font-bold font-mono-num text-base ${c}`}>{value}</div>
       </div>
     </div>
@@ -127,25 +127,25 @@ function Kpi({ label, value, icon, accent }: { label: string; value: string; ico
 
 function TierBadge({ tier }: { tier: JobLite["tier"] }) {
   const map = {
-    critical: { c: "#E24B4A", l: "Critical" },
-    deferrable: { c: "#FFB300", l: "Deferrable" },
-    training: { c: "#1D9E75", l: "Training" },
+    critical: { c: "#1E3A8A", l: "Critical" },
+    deferrable: { c: "#60A5FA", l: "Deferrable" },
+    training: { c: "#0EA5E9", l: "Training" },
   } as const;
   const m = map[tier];
   return <span className="px-2 py-0.5 rounded text-[10px] font-mono-num font-semibold" style={{ background: `${m.c}20`, color: m.c, border: `1px solid ${m.c}50` }}>{m.l}</span>;
 }
 
 function StatusBadge({ status }: { status: JobLite["status"] }) {
-  if (status === "running") return <span className="flex items-center gap-1.5 text-[#1D9E75] text-[11px]"><Play size={11} fill="#1D9E75" /> Running</span>;
-  if (status === "throttled") return <span className="flex items-center gap-1.5 text-[#FFB300] text-[11px]">⚡ Throttled</span>;
-  return <span className="flex items-center gap-1.5 text-[#7B8FAB] text-[11px]"><Pause size={11} /> Deferred</span>;
+  if (status === "running") return <span className="flex items-center gap-1.5 text-[#0EA5E9] text-[11px]"><Play size={11} fill="#0EA5E9" /> Running</span>;
+  if (status === "throttled") return <span className="flex items-center gap-1.5 text-[#60A5FA] text-[11px]">⚡ Throttled</span>;
+  return <span className="flex items-center gap-1.5 text-[#64748B] text-[11px]"><Pause size={11} /> Deferred</span>;
 }
 
 function Explainer({ title, desc }: { title: string; desc: string }) {
   return (
     <div className="card-surface p-4">
-      <div className="text-[12px] font-display font-semibold text-white mb-1">{title}</div>
-      <div className="text-[11.5px] text-[#7B8FAB] leading-relaxed">{desc}</div>
+      <div className="text-[12px] font-display font-semibold text-[#0F172A] mb-1">{title}</div>
+      <div className="text-[11.5px] text-[#64748B] leading-relaxed">{desc}</div>
     </div>
   );
 }

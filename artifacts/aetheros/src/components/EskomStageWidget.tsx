@@ -12,7 +12,7 @@ export function EskomStageWidget() {
       <button
         onClick={() => setOpen(true)}
         data-testid="button-eskom-widget-open"
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center font-mono-num font-bold text-white border border-[rgba(0,201,167,0.3)] shadow-xl"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center font-mono-num font-bold text-white border border-[rgba(37,99,235,0.3)] shadow-xl"
         style={{ background: stageColor(stage) }}
       >
         S{stage}
@@ -21,12 +21,12 @@ export function EskomStageWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-72 rounded-xl bg-[#0F2040] border border-[rgba(0,201,167,0.25)] shadow-2xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0A1628] border-b border-[rgba(0,201,167,0.15)]">
-        <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider font-mono-num text-[#00C9A7]">
+    <div className="fixed bottom-6 right-6 z-50 w-72 rounded-xl bg-[rgba(255,255,255,0.65)] border border-[rgba(37,99,235,0.25)] shadow-2xl overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-[#F1F5F9] border-b border-[rgba(37,99,235,0.15)]">
+        <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider font-mono-num text-[#2563EB]">
           <Power size={12} /> Eskom Stage Simulator
         </div>
-        <button onClick={() => setOpen(false)} data-testid="button-eskom-widget-close" className="text-[#7B8FAB] hover:text-white">
+        <button onClick={() => setOpen(false)} data-testid="button-eskom-widget-close" className="text-[#64748B] hover:text-[#0F172A]">
           <X size={14} />
         </button>
       </div>
@@ -34,9 +34,9 @@ export function EskomStageWidget() {
       <div className="p-4 space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-[10px] uppercase tracking-wider text-[#7B8FAB] font-mono-num">Current</div>
-            <div className="font-display font-bold text-2xl text-white" data-testid="text-current-stage">Stage {stage}</div>
-            <div className="text-[11px] text-[#7B8FAB]">{stageLabel(stage)}</div>
+            <div className="text-[10px] uppercase tracking-wider text-[#64748B] font-mono-num">Current</div>
+            <div className="font-display font-bold text-2xl text-[#0F172A]" data-testid="text-current-stage">Stage {stage}</div>
+            <div className="text-[11px] text-[#64748B]">{stageLabel(stage)}</div>
           </div>
           <div
             className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-mono-num font-bold text-lg"
@@ -50,14 +50,14 @@ export function EskomStageWidget() {
           <button
             onClick={() => setStage(Math.max(0, stage - 1) as EskomStage)}
             data-testid="button-stage-down"
-            className="flex-1 py-2 rounded-md bg-[#0A1628] hover:bg-[rgba(0,201,167,0.1)] border border-[rgba(0,201,167,0.2)] flex items-center justify-center gap-1 text-[#00C9A7] text-xs font-medium"
+            className="flex-1 py-2 rounded-md bg-[#F1F5F9] hover:bg-[rgba(37,99,235,0.1)] border border-[rgba(37,99,235,0.2)] flex items-center justify-center gap-1 text-[#2563EB] text-xs font-medium"
           >
             <ChevronDown size={14} /> Lower
           </button>
           <button
             onClick={() => setStage(Math.min(8, stage + 1) as EskomStage)}
             data-testid="button-stage-up"
-            className="flex-1 py-2 rounded-md bg-[#0A1628] hover:bg-[rgba(0,201,167,0.1)] border border-[rgba(0,201,167,0.2)] flex items-center justify-center gap-1 text-[#00C9A7] text-xs font-medium"
+            className="flex-1 py-2 rounded-md bg-[#F1F5F9] hover:bg-[rgba(37,99,235,0.1)] border border-[rgba(37,99,235,0.2)] flex items-center justify-center gap-1 text-[#2563EB] text-xs font-medium"
           >
             <ChevronUp size={14} /> Raise
           </button>
@@ -80,7 +80,7 @@ export function EskomStageWidget() {
           ))}
         </div>
 
-        <div className="text-[10px] text-[#7B8FAB] font-mono-num leading-snug pt-1 border-t border-[rgba(0,201,167,0.1)]">
+        <div className="text-[10px] text-[#64748B] font-mono-num leading-snug pt-1 border-t border-[rgba(37,99,235,0.1)]">
           Changing stage cascades to dispatch, GPU routing, alerts, and islanding score system-wide.
         </div>
       </div>

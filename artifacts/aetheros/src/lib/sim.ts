@@ -31,18 +31,18 @@ export interface FlowPoint {
 }
 
 export const COLORS = {
-  bg: "#0A1628",
-  surface: "#0F2040",
-  primary: "#00C9A7",
-  secondary: "#00A389",
-  text: "#F0F4FF",
-  muted: "#7B8FAB",
-  danger: "#E24B4A",
-  warning: "#BA7517",
-  success: "#1D9E75",
-  gold: "#FFB300",
-  purple: "#8B5CF6",
-  orange: "#FF6B35",
+  bg: "#F1F5F9",
+  surface: "rgba(255,255,255,0.65)",
+  primary: "#2563EB",
+  secondary: "#1D4ED8",
+  text: "#0F172A",
+  muted: "#64748B",
+  danger: "#1E3A8A",
+  warning: "#475569",
+  success: "#0EA5E9",
+  gold: "#60A5FA",
+  purple: "#6366F1",
+  orange: "#3B82F6",
 };
 
 const SOLAR_CAP = 2.0;

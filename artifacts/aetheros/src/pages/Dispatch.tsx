@@ -38,9 +38,9 @@ export default function DispatchPage() {
         title="AI Dispatch Control"
         subtitle="Reinforcement-learning policy · 14ms inference"
         right={
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(29,158,117,0.12)] border border-[rgba(29,158,117,0.3)]">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(14,165,233,0.12)] border border-[rgba(14,165,233,0.3)]">
             <span className="pulse-dot" />
-            <span className="text-[11px] font-mono-num text-[#1D9E75] uppercase tracking-wider">System Active</span>
+            <span className="text-[11px] font-mono-num text-[#0EA5E9] uppercase tracking-wider">System Active</span>
           </div>
         }
       />
@@ -48,7 +48,7 @@ export default function DispatchPage() {
       <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
         {/* Sensor inputs */}
         <div className="xl:col-span-2 card-surface p-5">
-          <h2 className="font-display font-semibold text-white text-base mb-4">Sensor Inputs</h2>
+          <h2 className="font-display font-semibold text-[#0F172A] text-base mb-4">Sensor Inputs</h2>
           <div className="space-y-5">
             <SliderRow label="BESS SoC" unit="%" value={inputs.bessSoc} min={0} max={100} step={1}
               onChange={(v) => setInputs({ ...inputs, bessSoc: v })} />
@@ -66,7 +66,7 @@ export default function DispatchPage() {
             onClick={calculate}
             disabled={calculating}
             data-testid="button-calculate-dispatch"
-            className="mt-6 w-full py-3 rounded-md bg-[#00C9A7] hover:bg-[#00A389] text-[#0A1628] font-display font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60 transition-colors shadow-[0_0_20px_rgba(0,201,167,0.25)]"
+            className="mt-6 w-full py-3 rounded-md bg-[#2563EB] hover:bg-[#1D4ED8] text-[#F1F5F9] font-display font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-60 transition-colors shadow-[0_0_20px_rgba(37,99,235,0.25)]"
           >
             {calculating ? <><Loader2 size={14} className="animate-spin" /> Calculating…</> : <><Zap size={14} /> Get Dispatch Decision</>}
           </button>
@@ -76,37 +76,37 @@ export default function DispatchPage() {
         <div className="xl:col-span-3 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <ActionBadge
-              icon={<Zap size={16} className="text-[#E24B4A]" />}
+              icon={<Zap size={16} className="text-[#1E3A8A]" />}
               title="BESS Action"
               value={shown.bessDirection === "discharge" ? `Discharge ${shown.bessPctAction.toFixed(0)}%` : shown.bessDirection === "charge" ? `Charge ${shown.bessPctAction.toFixed(0)}%` : "Idle"}
               detail={`${(metrics.bessPower).toFixed(1)} MW`}
-              color="#E24B4A"
+              color="#1E3A8A"
             />
             <ActionBadge
-              icon={<Flame size={16} className="text-[#FFB300]" />}
+              icon={<Flame size={16} className="text-[#60A5FA]" />}
               title="Biomass"
               value={`${shown.biomassPct}% Rated`}
               detail={`${Math.round((shown.biomassPct / 100) * 500)} kW`}
-              color="#FFB300"
+              color="#60A5FA"
             />
             <ActionBadge
-              icon={<Server size={16} className="text-[#00C9A7]" />}
+              icon={<Server size={16} className="text-[#2563EB]" />}
               title="GPU Routing"
               value={`${shown.gpuDeferrablePct}% Deferrable`}
               detail={shown.gpuRouting === "RUN_FULL" ? "Front-load now" : shown.gpuRouting === "THROTTLE_25" ? "Light throttle" : shown.gpuRouting === "PAUSE_DEFERRABLE" ? "Pause deferrable" : "Critical only"}
-              color="#00C9A7"
+              color="#2563EB"
             />
           </div>
 
           {/* Forecast table */}
           <div className="card-surface overflow-hidden">
-            <div className="px-4 py-3 border-b border-[rgba(0,201,167,0.1)] flex items-center justify-between">
-              <h3 className="font-display font-semibold text-white text-sm">24h Forecast Horizon</h3>
-              <span className="text-[10px] font-mono-num text-[#7B8FAB] uppercase tracking-wider">LSTM v0.4 · Open-Meteo</span>
+            <div className="px-4 py-3 border-b border-[rgba(37,99,235,0.1)] flex items-center justify-between">
+              <h3 className="font-display font-semibold text-[#0F172A] text-sm">24h Forecast Horizon</h3>
+              <span className="text-[10px] font-mono-num text-[#64748B] uppercase tracking-wider">LSTM v0.4 · Open-Meteo</span>
             </div>
             <table className="w-full text-[12px]">
-              <thead className="text-[10px] uppercase tracking-wider text-[#7B8FAB] font-mono-num">
-                <tr className="border-b border-[rgba(0,201,167,0.08)]">
+              <thead className="text-[10px] uppercase tracking-wider text-[#64748B] font-mono-num">
+                <tr className="border-b border-[rgba(37,99,235,0.08)]">
                   <th className="text-left px-4 py-2">Horizon</th>
                   <th className="text-left px-4 py-2">Stage</th>
                   <th className="text-right px-4 py-2">Solar MW</th>
@@ -115,13 +115,13 @@ export default function DispatchPage() {
               </thead>
               <tbody className="font-mono-num">
                 {forecast.map((f) => (
-                  <tr key={f.horizon} className="border-b border-[rgba(0,201,167,0.05)] last:border-0">
-                    <td className="px-4 py-2.5 text-white">{f.horizon}</td>
+                  <tr key={f.horizon} className="border-b border-[rgba(37,99,235,0.05)] last:border-0">
+                    <td className="px-4 py-2.5 text-[#0F172A]">{f.horizon}</td>
                     <td className="px-4 py-2.5">
                       <span className={`stage-${f.stage} text-white px-2 py-0.5 rounded text-[11px] font-semibold`}>S{f.stage}</span>
                     </td>
-                    <td className="px-4 py-2.5 text-right text-[#FFB300]">{f.solar.toFixed(2)}</td>
-                    <td className="px-4 py-2.5 text-right text-[#00C9A7]">{f.wind.toFixed(2)}</td>
+                    <td className="px-4 py-2.5 text-right text-[#60A5FA]">{f.solar.toFixed(2)}</td>
+                    <td className="px-4 py-2.5 text-right text-[#2563EB]">{f.wind.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -130,12 +130,12 @@ export default function DispatchPage() {
 
           {/* Anomaly alert */}
           {showAlert && (
-            <div className="border-l-4 border-l-[#E24B4A] bg-[rgba(226,75,74,0.08)] rounded-r-lg p-4">
-              <div className="flex items-center gap-2 text-[#E24B4A] text-[11px] uppercase tracking-wider font-mono-num mb-1">
+            <div className="border-l-4 border-l-[#1E3A8A] bg-[rgba(30,58,138,0.08)] rounded-r-lg p-4">
+              <div className="flex items-center gap-2 text-[#1E3A8A] text-[11px] uppercase tracking-wider font-mono-num mb-1">
                 <span className="pulse-dot red" /> CRITICAL
               </div>
-              <div className="text-white text-sm font-semibold">Stage {inputs.stage} detected</div>
-              <div className="text-[#F0F4FF]/80 text-[12px] mt-1 leading-relaxed">
+              <div className="text-[#0F172A] text-sm font-semibold">Stage {inputs.stage} detected</div>
+              <div className="text-[#0F172A]/80 text-[12px] mt-1 leading-relaxed">
                 Pre-charging BESS. Deferring all training jobs. Islanding protocol armed. Estimated grid recovery in 145 min.
               </div>
             </div>
@@ -145,14 +145,14 @@ export default function DispatchPage() {
 
       {/* Dispatch history */}
       <div className="card-surface mt-6 overflow-hidden">
-        <div className="px-4 py-3 border-b border-[rgba(0,201,167,0.1)] flex items-center justify-between">
-          <h3 className="font-display font-semibold text-white text-sm">Recent Dispatch Decisions</h3>
-          <span className="text-[10px] font-mono-num text-[#7B8FAB] uppercase tracking-wider">Last 10 actions</span>
+        <div className="px-4 py-3 border-b border-[rgba(37,99,235,0.1)] flex items-center justify-between">
+          <h3 className="font-display font-semibold text-[#0F172A] text-sm">Recent Dispatch Decisions</h3>
+          <span className="text-[10px] font-mono-num text-[#64748B] uppercase tracking-wider">Last 10 actions</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-[12px]">
-            <thead className="text-[10px] uppercase tracking-wider text-[#7B8FAB] font-mono-num">
-              <tr className="border-b border-[rgba(0,201,167,0.08)]">
+            <thead className="text-[10px] uppercase tracking-wider text-[#64748B] font-mono-num">
+              <tr className="border-b border-[rgba(37,99,235,0.08)]">
                 <th className="text-left px-4 py-2">Time</th>
                 <th className="text-left px-4 py-2">BESS Action</th>
                 <th className="text-right px-4 py-2">Biomass</th>
@@ -162,12 +162,12 @@ export default function DispatchPage() {
             </thead>
             <tbody className="font-mono-num">
               {dispatchHistory.map((h) => (
-                <tr key={h.id} className="border-b border-[rgba(0,201,167,0.04)] last:border-0">
-                  <td className="px-4 py-2.5 text-[#7B8FAB]">{new Date(h.time).toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" })}</td>
-                  <td className="px-4 py-2.5 text-white">{h.bessAction}</td>
-                  <td className="px-4 py-2.5 text-right text-[#FFB300]">{h.biomassPct}%</td>
-                  <td className="px-4 py-2.5 text-right text-[#00C9A7]">{h.gpuPct}%</td>
-                  <td className="px-4 py-2.5 text-right text-[#1D9E75]">{fmtR(h.savings)}</td>
+                <tr key={h.id} className="border-b border-[rgba(37,99,235,0.04)] last:border-0">
+                  <td className="px-4 py-2.5 text-[#64748B]">{new Date(h.time).toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" })}</td>
+                  <td className="px-4 py-2.5 text-[#0F172A]">{h.bessAction}</td>
+                  <td className="px-4 py-2.5 text-right text-[#60A5FA]">{h.biomassPct}%</td>
+                  <td className="px-4 py-2.5 text-right text-[#2563EB]">{h.gpuPct}%</td>
+                  <td className="px-4 py-2.5 text-right text-[#0EA5E9]">{fmtR(h.savings)}</td>
                 </tr>
               ))}
             </tbody>
@@ -184,8 +184,8 @@ function SliderRow({
   return (
     <div>
       <div className="flex items-center justify-between mb-1.5">
-        <label className="text-[11px] font-mono-num uppercase tracking-wider text-[#7B8FAB]">{label}</label>
-        <div className="font-mono-num text-white text-[13px]">{integer ? Math.round(value) : value.toFixed(2)} <span className="text-[#7B8FAB] text-[10px]">{unit}</span></div>
+        <label className="text-[11px] font-mono-num uppercase tracking-wider text-[#64748B]">{label}</label>
+        <div className="font-mono-num text-[#0F172A] text-[13px]">{integer ? Math.round(value) : value.toFixed(2)} <span className="text-[#64748B] text-[10px]">{unit}</span></div>
       </div>
       <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => onChange(v[0]!)} />
     </div>
@@ -198,9 +198,9 @@ function ActionBadge({ icon, title, value, detail, color }: { icon: React.ReactN
       <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: color }} />
       <div className="flex items-center gap-2 mb-2">
         {icon}
-        <span className="text-[10px] uppercase tracking-wider font-mono-num text-[#7B8FAB]">{title}</span>
+        <span className="text-[10px] uppercase tracking-wider font-mono-num text-[#64748B]">{title}</span>
       </div>
-      <div className="font-display font-bold text-white text-base mb-1">{value}</div>
+      <div className="font-display font-bold text-[#0F172A] text-base mb-1">{value}</div>
       <div className="text-[11px] font-mono-num" style={{ color }}>{detail}</div>
     </div>
   );

@@ -4,9 +4,9 @@ import { CheckCircle2, XCircle, AlertCircle, Bell } from "lucide-react";
 import { useState } from "react";
 
 const SEVERITY_COLORS = {
-  emergency: { bg: "rgba(226,75,74,0.10)", border: "#E24B4A", text: "#E24B4A" },
-  critical:  { bg: "rgba(226,75,74,0.06)", border: "#E24B4A", text: "#E24B4A" },
-  warning:   { bg: "rgba(255,179,0,0.08)", border: "#FFB300", text: "#FFB300" },
+  emergency: { bg: "rgba(30,58,138,0.10)", border: "#1E3A8A", text: "#1E3A8A" },
+  critical:  { bg: "rgba(30,58,138,0.06)", border: "#1E3A8A", text: "#1E3A8A" },
+  warning:   { bg: "rgba(96,165,250,0.08)", border: "#60A5FA", text: "#60A5FA" },
 } as const;
 
 export default function AlertsPage() {
@@ -30,9 +30,9 @@ export default function AlertsPage() {
         subtitle="Live anomaly detection · Mahalanobis distance + LSTM autoencoder"
         right={
           <div className="flex items-center gap-3">
-            <SeverityChip color="#E24B4A" count={counts.emergency} label="Emergency" />
-            <SeverityChip color="#E24B4A" count={counts.critical} label="Critical" />
-            <SeverityChip color="#FFB300" count={counts.warning} label="Warning" />
+            <SeverityChip color="#1E3A8A" count={counts.emergency} label="Emergency" />
+            <SeverityChip color="#1E3A8A" count={counts.critical} label="Critical" />
+            <SeverityChip color="#60A5FA" count={counts.warning} label="Warning" />
           </div>
         }
       />
@@ -46,8 +46,8 @@ export default function AlertsPage() {
             className={[
               "px-3 py-1.5 rounded-md text-[12px] font-medium border transition-colors",
               filter === f
-                ? "bg-[rgba(0,201,167,0.15)] border-[#00C9A7] text-[#00C9A7]"
-                : "bg-[#0F2040] border-[rgba(0,201,167,0.15)] text-[#7B8FAB] hover:text-white",
+                ? "bg-[rgba(37,99,235,0.15)] border-[#2563EB] text-[#2563EB]"
+                : "bg-[rgba(255,255,255,0.65)] border-[rgba(37,99,235,0.15)] text-[#64748B] hover:text-[#0F172A]",
             ].join(" ")}
           >
             {f === "unresolved" ? `Unresolved (${alerts.filter((a) => !a.resolved).length})` : f === "all" ? `All (${alerts.length})` : `Resolved (${alerts.filter((a) => a.resolved).length})`}
@@ -58,9 +58,9 @@ export default function AlertsPage() {
       <div className="space-y-2.5">
         {filtered.length === 0 && (
           <div className="card-surface p-10 text-center">
-            <CheckCircle2 size={32} className="mx-auto text-[#1D9E75] mb-3" />
-            <div className="text-white font-display font-semibold">No {filter} alerts</div>
-            <div className="text-[12px] text-[#7B8FAB] mt-1">All systems nominal · {new Date().toLocaleString("en-ZA")}</div>
+            <CheckCircle2 size={32} className="mx-auto text-[#0EA5E9] mb-3" />
+            <div className="text-[#0F172A] font-display font-semibold">No {filter} alerts</div>
+            <div className="text-[12px] text-[#64748B] mt-1">All systems nominal · {new Date().toLocaleString("en-ZA")}</div>
           </div>
         )}
         {filtered.map((a) => {
@@ -84,12 +84,12 @@ export default function AlertsPage() {
                 <div className="text-[10px] uppercase tracking-wider font-mono-num" style={{ color: sev.text }}>{a.severity}</div>
               </div>
               <div>
-                <div className="text-white font-display font-semibold text-[14px]">{a.title}</div>
-                <div className="text-[12px] text-white/80 mt-1 leading-relaxed">{a.message}</div>
+                <div className="text-[#0F172A] font-display font-semibold text-[14px]">{a.title}</div>
+                <div className="text-[12px] text-[#475569] mt-1 leading-relaxed">{a.message}</div>
                 {a.recommended && (
-                  <div className="text-[11.5px] text-[#00C9A7] mt-2 font-mono-num">→ {a.recommended}</div>
+                  <div className="text-[11.5px] text-[#2563EB] mt-2 font-mono-num">→ {a.recommended}</div>
                 )}
-                <div className="flex items-center gap-3 mt-2 text-[10px] text-[#7B8FAB] font-mono-num uppercase tracking-wider flex-wrap">
+                <div className="flex items-center gap-3 mt-2 text-[10px] text-[#64748B] font-mono-num uppercase tracking-wider flex-wrap">
                   <span>{a.signal}</span>
                   <span>·</span>
                   <span>{a.method}</span>
@@ -101,12 +101,12 @@ export default function AlertsPage() {
               </div>
               <div>
                 {a.resolved ? (
-                  <span className="text-[11px] uppercase tracking-wider px-2 py-1 rounded bg-[rgba(29,158,117,0.15)] text-[#1D9E75] font-mono-num">Resolved</span>
+                  <span className="text-[11px] uppercase tracking-wider px-2 py-1 rounded bg-[rgba(14,165,233,0.15)] text-[#0EA5E9] font-mono-num">Resolved</span>
                 ) : (
                   <button
                     onClick={() => acknowledgeAlert(a.id)}
                     data-testid={`button-resolve-${a.id}`}
-                    className="px-3 py-1.5 rounded-md bg-[rgba(0,201,167,0.15)] hover:bg-[rgba(0,201,167,0.3)] border border-[#00C9A7]/40 text-[#00C9A7] text-[11px] font-medium"
+                    className="px-3 py-1.5 rounded-md bg-[rgba(37,99,235,0.15)] hover:bg-[rgba(37,99,235,0.3)] border border-[#2563EB]/40 text-[#2563EB] text-[11px] font-medium"
                   >
                     Acknowledge
                   </button>

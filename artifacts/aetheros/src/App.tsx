@@ -34,13 +34,16 @@ function App() {
         <Router />
       </WouterRouter>
       <Toaster
-        theme="dark"
+        theme="light"
         position="top-right"
         toastOptions={{
           style: {
-            background: "#0F2040",
-            border: "1px solid rgba(0,201,167,0.3)",
-            color: "#F0F4FF",
+            background: "rgba(255,255,255,0.85)",
+            backdropFilter: "blur(18px) saturate(160%)",
+            WebkitBackdropFilter: "blur(18px) saturate(160%)",
+            border: "1px solid rgba(255,255,255,0.7)",
+            boxShadow: "0 16px 40px -12px rgba(15,23,42,0.18)",
+            color: "#0F172A",
             fontFamily: "DM Sans, system-ui, sans-serif",
             fontSize: "13px",
           },
