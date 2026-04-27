@@ -66,3 +66,22 @@ building an AI-Thermal-Smart Grid OS for AI data centres operating during Eskom 
 
 AetherGrid AI · Pfunzo Ramudingana · martin19pr@gmail.com · +27 60 752 4049 ·
 Polokwane, Limpopo, South Africa · AetherOS v0.2.0 — Early Stage · Seed Round Open
+
+## Vercel deployment
+
+The repo ships ready for one-click Vercel import:
+
+- `vercel.json` (root): `pnpm install --frozen-lockfile`, build with
+  `pnpm --filter @workspace/aetheros run build`, output
+  `artifacts/aetheros/dist/public`, SPA rewrites to `/index.html`, long-cache
+  headers on `/assets/*`.
+- `.vercelignore` (root): excludes the api-server, mockup-sandbox, attached
+  assets, and `.local` from the build context.
+- `package.json` pins `packageManager: pnpm@10.26.1` so Vercel's corepack
+  uses the same version as Replit.
+- `artifacts/aetheros/vite.config.ts` defaults `BASE_PATH` to `/` and skips
+  the strict `PORT` check when `process.env.VERCEL` is set, so `vite build`
+  works on Vercel without env vars while staying strict on Replit.
+
+To deploy: import the repo on Vercel — no env vars required, no other
+configuration needed.

@@ -4,21 +4,26 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+// On Vercel (or any non-Replit production build) the platform runs `vite build`
+// directly without injecting PORT or BASE_PATH. Fall back to sensible defaults
+// in that case so the build succeeds and the SPA serves from the site root.
+const isVercel = !!process.env.VERCEL;
+
 const rawPort = process.env.PORT;
 
-if (!rawPort) {
+if (!isVercel && !rawPort) {
   throw new Error(
     "PORT environment variable is required but was not provided.",
   );
 }
 
-const port = Number(rawPort);
+const port = rawPort ? Number(rawPort) : 5173;
 
 if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-const basePath = process.env.BASE_PATH;
+const basePath = process.env.BASE_PATH ?? (isVercel ? "/" : undefined);
 
 if (!basePath) {
   throw new Error(

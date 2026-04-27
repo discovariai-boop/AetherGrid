@@ -1,0 +1,8 @@
+.local/
+attached_assets/
+artifacts/api-server/
+artifacts/mockup-sandbox/
+**/node_modules
+**/.expo
+**/.expo-shared
+*.log
