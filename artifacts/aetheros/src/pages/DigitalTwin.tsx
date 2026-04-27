@@ -10,7 +10,7 @@ import { Cpu, Battery, Activity } from "lucide-react";
 
 export default function DigitalTwinPage() {
   const { metrics, dispatch } = useSystem();
-  const [scenarios, setScenarios] = useState(200);
+  const [scenarios, setScenarios] = useState(100);
   const monteCarlo = useMemo(() => generateMC(scenarios), [scenarios]);
   const racks = useMemo(() => generateRacks(metrics.rackTempC), [metrics.rackTempC]);
 
@@ -18,7 +18,7 @@ export default function DigitalTwinPage() {
     <Layout>
       <PageHeader
         title="Digital Twin — Live Facility Model"
-        subtitle="Real-time SCADA mirror · 14k tags · 250ms latency"
+        subtitle="Real-time SCADA mirror · 200+ sensor feeds · 14k tags · 250ms latency"
         right={
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(99,102,241,0.12)] border border-[rgba(99,102,241,0.3)]">
             <span className="pulse-dot teal" />

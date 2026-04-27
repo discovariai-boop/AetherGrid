@@ -93,7 +93,11 @@ export default function CarbonCreditsPage() {
             </div>
             <div>
               <div className="text-[10px] uppercase tracking-wider text-[#2563EB] font-mono-num mb-1">Verifier</div>
-              <div className="text-[#475569]">Verra VM0044 + ISO 14064-2 conformance check.</div>
+              <div className="text-[#475569]">Verra VM0044 + Gold Standard frameworks · ISO 14064-2 conformance.</div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-[#2563EB] font-mono-num mb-1">Site potential</div>
+              <div className="text-[#475569]">3,900 tCO₂e/yr → 4,200–6,800 VCUs. Brokerage upside <span className="font-mono-num text-[#2563EB]">R 1.1–5.5 M/yr</span>.</div>
             </div>
             <div className="pt-2 border-t border-[rgba(37,99,235,0.1)]">
               <button className="w-full py-2 rounded-md bg-[rgba(37,99,235,0.1)] hover:bg-[rgba(37,99,235,0.2)] border border-[rgba(37,99,235,0.3)] text-[#2563EB] text-[11px] font-medium flex items-center justify-center gap-1.5" data-testid="button-view-mrv">

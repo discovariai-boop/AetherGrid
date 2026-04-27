@@ -25,6 +25,14 @@ building an AI-Thermal-Smart Grid OS for AI data centres operating during Eskom 
 - The shell (`Sidebar`, `ConnectionBar`, `EskomStageWidget`, `Footer`) lives in
   `src/components/Layout.tsx`.
 
+## Spec alignment (Apr 2026 audit)
+- Forecasting: solar MAPE 8.3% @ 6h
+- Dispatch: PPO via Ray RLlib, 30s cycle, 14ms inference
+- Digital twin: 200+ sensor feeds, 100 Monte Carlo scenarios
+- Alerts: Z-score + IsolationForest + hard-limit + BESS health
+- GPU routing: 5 tiers (critical, high-priority/15min, deferrable/2h, training/24h, data-pipeline/48h)
+- Carbon: Verra VM0044 + Gold Standard, 4,200–6,800 VCUs/yr, R 1.1–5.5 M brokerage upside
+
 ## Pages
 
 | Path             | Component        | Purpose                                          |
@@ -37,6 +45,7 @@ building an AI-Thermal-Smart Grid OS for AI data centres operating during Eskom 
 | `/carbon-credits`| `CarbonCredits`  | MRV → tokenisation pipeline + on-chain ledger    |
 | `/alerts`        | `Alerts`         | Anomaly center with severity filtering           |
 | `/reports`       | `Reports`        | YTD trends, energy mix, generated reports        |
+| `/about`         | `About`          | How it works · 6 functions · integration · build |
 
 ## Design tokens
 

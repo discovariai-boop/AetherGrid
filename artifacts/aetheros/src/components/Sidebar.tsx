@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import {
-  LayoutDashboard, Zap, TrendingUp, Cpu, Server, Leaf, Bell, FileText,
+  LayoutDashboard, Zap, TrendingUp, Cpu, Server, Leaf, Bell, FileText, Info,
 } from "lucide-react";
 import { useSystem } from "@/context/SystemContext";
 
@@ -13,6 +13,7 @@ const NAV = [
   { path: "/carbon-credits", label: "Carbon Credits", icon: Leaf },
   { path: "/alerts", label: "Alerts", icon: Bell },
   { path: "/reports", label: "Reports", icon: FileText },
+  { path: "/about", label: "About & How It Works", icon: Info },
 ];
 
 export function Sidebar() {

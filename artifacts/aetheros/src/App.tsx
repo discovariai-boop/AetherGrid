@@ -9,6 +9,7 @@ import GpuRoutingPage from "@/pages/GpuRouting";
 import CarbonCreditsPage from "@/pages/CarbonCredits";
 import AlertsPage from "@/pages/Alerts";
 import ReportsPage from "@/pages/Reports";
+import AboutPage from "@/pages/About";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/carbon-credits" component={CarbonCreditsPage} />
       <Route path="/alerts" component={AlertsPage} />
       <Route path="/reports" component={ReportsPage} />
+      <Route path="/about" component={AboutPage} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -3,16 +3,19 @@ import { useSystem } from "@/context/SystemContext";
 import { Server, Pause, Play, Zap } from "lucide-react";
 import { COLORS } from "@/lib/sim";
 
-interface JobLite { id: string; name: string; tier: "critical" | "deferrable" | "training"; status: "running" | "throttled" | "deferred"; gpus: number; powerKw: number; eta: string; carbonGCo2: number; }
+type Tier = "critical" | "high-priority" | "deferrable" | "training" | "data-pipeline";
+interface JobLite { id: string; name: string; tier: Tier; status: "running" | "throttled" | "deferred"; gpus: number; powerKw: number; eta: string; carbonGCo2: number; }
 
 const JOBS: JobLite[] = [
   { id: "j-001", name: "fraud-detection-prod", tier: "critical", status: "running", gpus: 4, powerKw: 28, eta: "Live", carbonGCo2: 142 },
   { id: "j-002", name: "rec-eng-inference", tier: "critical", status: "running", gpus: 2, powerKw: 14, eta: "Live", carbonGCo2: 71 },
-  { id: "j-003", name: "llm-batch-eval-q3", tier: "deferrable", status: "throttled", gpus: 8, powerKw: 38, eta: "+47 min", carbonGCo2: 380 },
-  { id: "j-004", name: "vision-research-train", tier: "training", status: "deferred", gpus: 16, powerKw: 0, eta: "+2h 14m", carbonGCo2: 0 },
-  { id: "j-005", name: "embeddings-refresh", tier: "deferrable", status: "throttled", gpus: 4, powerKw: 18, eta: "+1h 12m", carbonGCo2: 195 },
-  { id: "j-006", name: "diffusion-finetune", tier: "training", status: "deferred", gpus: 12, powerKw: 0, eta: "+3h 45m", carbonGCo2: 0 },
-  { id: "j-007", name: "speech-to-text-prod", tier: "critical", status: "running", gpus: 1, powerKw: 7, eta: "Live", carbonGCo2: 35 },
+  { id: "j-003", name: "search-rerank-svc", tier: "high-priority", status: "running", gpus: 3, powerKw: 21, eta: "Live", carbonGCo2: 105 },
+  { id: "j-004", name: "llm-batch-eval-q3", tier: "deferrable", status: "throttled", gpus: 8, powerKw: 38, eta: "+47 min", carbonGCo2: 380 },
+  { id: "j-005", name: "vision-research-train", tier: "training", status: "deferred", gpus: 16, powerKw: 0, eta: "+2h 14m", carbonGCo2: 0 },
+  { id: "j-006", name: "embeddings-refresh", tier: "deferrable", status: "throttled", gpus: 4, powerKw: 18, eta: "+1h 12m", carbonGCo2: 195 },
+  { id: "j-007", name: "diffusion-finetune", tier: "training", status: "deferred", gpus: 12, powerKw: 0, eta: "+3h 45m", carbonGCo2: 0 },
+  { id: "j-008", name: "speech-to-text-prod", tier: "critical", status: "running", gpus: 1, powerKw: 7, eta: "Live", carbonGCo2: 35 },
+  { id: "j-009", name: "warehouse-etl-nightly", tier: "data-pipeline", status: "deferred", gpus: 6, powerKw: 0, eta: "+18h 02m", carbonGCo2: 0 },
 ];
 
 export default function GpuRoutingPage() {
@@ -27,10 +30,11 @@ export default function GpuRoutingPage() {
         title="GPU Workload Routing"
         subtitle="Carbon-aware scheduler · Real-time tier orchestration"
         right={
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <Pill color={COLORS.success} dot>{JOBS.filter((j) => j.status === "running").length} Running</Pill>
-            <Pill color={COLORS.warning}>{JOBS.filter((j) => j.status === "throttled").length} Throttled</Pill>
+            <Pill color={COLORS.primary}>{JOBS.filter((j) => j.status === "throttled").length} Throttled</Pill>
             <Pill color={COLORS.danger}>{JOBS.filter((j) => j.status === "deferred").length} Deferred</Pill>
+            <Pill color={COLORS.muted}>5-tier policy</Pill>
           </div>
         }
       />
@@ -93,11 +97,13 @@ export default function GpuRoutingPage() {
         </div>
       </div>
 
-      {/* Scheduler explanation */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
-        <Explainer title="🎯 Critical tier" desc="Always-on inference. Protected during all stages. Routes to BESS+renewables first." />
-        <Explainer title="⚡ Deferrable tier" desc="Throttled at S2+. Resumes during low-carbon, low-cost windows. SLA: ≤2h delay." />
-        <Explainer title="🌱 Training tier" desc="Fully shifts to renewable surplus or off-peak. Carbon-aware queue, optimal compute window." />
+      {/* Scheduler explanation — 5 tiers per spec */}
+      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-3 mt-5">
+        <Explainer title="Critical" desc="Real-time inference. Cannot defer. Protected through all stages." />
+        <Explainer title="High-priority" desc="Serving workloads. Tolerates ≤15 min delay. Throttled at S3+." />
+        <Explainer title="Deferrable" desc="Batch inference. Defer up to 2h. Resumes in low-carbon windows." />
+        <Explainer title="Training" desc="Defer up to 24h. Front-loaded into renewable surplus periods." />
+        <Explainer title="Data-pipeline" desc="ETL & data prep. Defer up to 48h. Lowest cost, off-peak only." />
       </div>
     </Layout>
   );
@@ -128,8 +134,10 @@ function Kpi({ label, value, icon, accent }: { label: string; value: string; ico
 function TierBadge({ tier }: { tier: JobLite["tier"] }) {
   const map = {
     critical: { c: "#1E3A8A", l: "Critical" },
+    "high-priority": { c: "#2563EB", l: "High-priority" },
     deferrable: { c: "#60A5FA", l: "Deferrable" },
     training: { c: "#0EA5E9", l: "Training" },
+    "data-pipeline": { c: "#6366F1", l: "Data-pipeline" },
   } as const;
   const m = map[tier];
   return <span className="px-2 py-0.5 rounded text-[10px] font-mono-num font-semibold" style={{ background: `${m.c}20`, color: m.c, border: `1px solid ${m.c}50` }}>{m.l}</span>;

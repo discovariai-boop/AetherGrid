@@ -27,7 +27,7 @@ export default function AlertsPage() {
     <Layout>
       <PageHeader
         title="Alerts & Anomaly Center"
-        subtitle="Live anomaly detection · Mahalanobis distance + LSTM autoencoder"
+        subtitle="Rolling Z-score + IsolationForest multivariate + hard-limit checks · BESS health monitor"
         right={
           <div className="flex items-center gap-3">
             <SeverityChip color="#1E3A8A" count={counts.emergency} label="Emergency" />

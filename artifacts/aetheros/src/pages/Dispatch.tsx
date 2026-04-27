@@ -36,7 +36,7 @@ export default function DispatchPage() {
     <Layout>
       <PageHeader
         title="AI Dispatch Control"
-        subtitle="Reinforcement-learning policy · 14ms inference"
+        subtitle="PPO via Ray RLlib · 30s dispatch cycle · 14ms inference"
         right={
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(14,165,233,0.12)] border border-[rgba(14,165,233,0.3)]">
             <span className="pulse-dot" />

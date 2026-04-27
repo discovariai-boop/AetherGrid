@@ -105,7 +105,7 @@ export default function ForecastingPage() {
               { metric: "Within ±1 stage", value: "94.7%", passed: true },
             ]} />
             <ModelGate name="Solar LSTM" gates={[
-              { metric: "MAPE", value: "7.8%", passed: true },
+              { metric: "MAPE @ 6h", value: "8.3%", passed: true },
               { metric: "R²", value: "0.914", passed: true },
             ]} />
             <ModelGate name="Wind GBM" gates={[
